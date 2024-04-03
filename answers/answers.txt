@@ -1,0 +1,12 @@
+Simple Selects and Counts
+select * from types;
+select * from pokemons where id = 45;
+select count(*) from pokemons;
+select count(*) from types;
+select count(*) from pokemons where secondary_type is not null;
+
+Joins and Groups
+select pokemons.name, types.name  from pokemons join types on pokemons.primary_type = types.id;
+select pokemons.name, types.name  from pokemons join types on pokemons.secondary_type = types.id where pokemons.name = "Rufflet";
+select pokemons.name from pokemons join trainers on pokemons.primary_type  = trainers.trainerID where trainerID = 303;
+select Count(*) from pokemons join types on pokemons.primary_type = types.id where types.name = "Poison";
