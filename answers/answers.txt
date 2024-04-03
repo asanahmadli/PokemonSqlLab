@@ -10,3 +10,11 @@ select pokemons.name, types.name  from pokemons join types on pokemons.primary_t
 select pokemons.name, types.name  from pokemons join types on pokemons.secondary_type = types.id where pokemons.name = "Rufflet";
 select pokemons.name from pokemons join trainers on pokemons.primary_type  = trainers.trainerID where trainerID = 303;
 select Count(*) from pokemons join types on pokemons.primary_type = types.id where types.name = "Poison";
+select count(pokemons.name), primary_type,types.name from pokemons join types on pokemons.primary_type = types.id group by primary_type;
+select count(*) from pokemon_trainer where pokelevel = 100 group by trainerID;
+// test that query
+select sum(cnt)  as total_100_pokemons
+from (select count(*) as cnt from pokemon_trainer where pokelevel = 100 group by trainerID) as level_100_counts;
+select count(*) as pokemon_count
+from(select pokemon_id from pokemon_trainer group by pokemon_id having count(distinct trainerID) = 1)
+as single_trainer_pokemon
