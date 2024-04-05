@@ -8,7 +8,7 @@ select count(*) from pokemons where secondary_type is not null;
 Joins and Groups
 select pokemons.name, types.name  from pokemons join types on pokemons.primary_type = types.id;
 select pokemons.name, types.name  from pokemons join types on pokemons.secondary_type = types.id where pokemons.name = "Rufflet";
-select pokemons.name from pokemons join trainers on pokemons.primary_type  = trainers.trainerID where trainerID = 303;
+select pokemons.name from pokemons join trainers on pokemons.id  = trainers.trainerID where trainerID = 303;
 select Count(*) from pokemons join types on pokemons.primary_type = types.id where types.name = "Poison";
 select count(pokemons.name), primary_type,types.name from pokemons join types on pokemons.primary_type = types.id group by primary_type;
 select count(*) from pokemon_trainer where pokelevel = 100 group by trainerID;
@@ -18,3 +18,20 @@ from (select count(*) as cnt from pokemon_trainer where pokelevel = 100 group by
 select count(*) as pokemon_count
 from(select pokemon_id from pokemon_trainer group by pokemon_id having count(distinct trainerID) = 1)
 as single_trainer_pokemon
+
+
+I need help to group by based on pokelevel 100 trainers
+select
+p.name AS "Pokemon's name",
+trainers.trainername AS "Trainer's name",
+pokemon_trainer.pokelevel AS "Current Level",
+pt.name AS "Primary Type Name",
+st.name AS "Secondary Type Name"
+from pokemons AS p
+join types as pt on p.primary_type = pt.id
+join types as st on p.secondary_type = st.id
+join pokemon_trainer on p.id = pokemon_trainer.pokemon_id
+join trainers on trainers.trainerID = pokemon_trainer.trainerID
+where pokemon_trainer.pokelevel = 100
+order by trainers.trainername asc
+limit 50;
